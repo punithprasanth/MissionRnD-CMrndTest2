@@ -37,8 +37,43 @@ struct oddevennode{
 	struct oddevennode * random;
 
 };
-
+typedef struct oddevennode *list;
 int * oddeven_sll(struct oddevennode *head){
+	if (head == NULL)return NULL;
+	int result[2] = { 0 };
+	list t = head;
+	while (t != NULL)
+	{
+		if (t->data % 2 == 1)
+		{
+			result[0]++;
+			list t2 = t;
+			while (t2->next != NULL)
+			{
+				if ((t2->next->data) % 2 == 1)
+				{
+					t->random = t2->next;
+					break;
+				}
+				t2 = t2->next;
+			}
+		}
 
-	return NULL;
+		if (t->data % 2 == 0)
+		{
+			result[1]++;
+			list t2 = t;
+			while (t2->next != NULL)
+			{
+				if ((t2->next->data) % 2 == 0)
+				{
+					t->random = t2->next;
+					break;
+				}
+				t2 = t2->next;
+			}
+		}
+		t = t->next;
+	}
+	return result;
 }
